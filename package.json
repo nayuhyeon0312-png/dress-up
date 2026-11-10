@@ -1,0 +1,8 @@
+{
+  "name": "dress-up-editor",
+  "version": "1.0.0",
+  "private": true,
+  "description": "A browser-based sticker-style outfit editor",
+  "scripts": { "start": "node server.js" },
+  "engines": { "node": ">=18" }
+}

@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta name="theme-color" content="#f5f1e9">
+  <title>DRESS UP! — 나만의 코디 편집실</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/konva@9.3.18/konva.min.js"></script>
+</head>
+<body>
+  <header class="topbar">
+    <div><div class="brand">DRESS UP<span>!</span></div><div class="subbrand">MY LITTLE OUTFIT STUDIO</div></div>
+    <div class="top-actions">
+      <button id="saveBtn" class="primary">코디 저장</button>
+      <button id="exportBtn">이미지로 저장</button>
+    </div>
+  </header>
+
+  <main class="layout">
+    <aside class="sidebar">
+      <section class="panel">
+        <h2>나의 캐릭터</h2>
+        <p class="hint">전신 사진을 올리면 편집판에 놓을 수 있어.</p>
+        <label class="upload-btn">전신 사진 등록<input id="personInput" type="file" accept="image/*" hidden></label>
+        <label class="upload-btn light">얼굴 사진 등록<input id="faceInput" type="file" accept="image/*" hidden></label>
+        <div id="facePreview" class="face-preview">얼굴 사진 미리보기</div>
+        <div class="body-builder">
+          <h3>내 체형 캐릭터 만들기</h3>
+          <div class="measure-row">
+            <label>키 (cm)<input id="heightInput" type="number" min="120" max="220" value="165"></label>
+            <label>몸무게 (kg)<input id="weightInput" type="number" min="30" max="200" value="55"></label>
+          </div>
+          <button id="createBodyBtn" class="wide">이 체형으로 캐릭터 만들기</button>
+          <p class="tiny-note">키와 몸무게를 바탕으로 만든 대략적인 기본 체형이야. 실제 신체 비율과는 다를 수 있어.</p>
+        </div>
+        <div class="small-note">사진은 이 브라우저 안에서 처리돼. 서버로 전송하지 않아.</div>
+      </section>
+
+      <section class="panel">
+        <h2>옷 스티커 만들기</h2>
+        <p class="hint">옷 사진을 올리고 자동 누끼를 해봐. 결과는 직접 다듬을 수 있어.</p>
+        <label class="upload-btn">옷 사진 추가<input id="clothesInput" type="file" accept="image/*" multiple hidden></label>
+        <div class="category-row">
+          <button class="category active" data-category="상의">상의</button>
+          <button class="category" data-category="하의">하의</button>
+          <button class="category" data-category="신발">신발</button>
+          <button class="category" data-category="가방">가방</button>
+          <button class="category" data-category="소품">소품</button>
+        </div>
+        <div id="closet" class="closet"><div class="empty">아직 옷 스티커가 없어.</div></div>
+      </section>
+
+      <section class="panel">
+        <h2>누끼 다듬기</h2>
+        <p class="hint">옷 스티커를 선택한 뒤 지우개/복구 브러시를 사용해.</p>
+        <div class="tool-row">
+          <button id="selectTool" class="tool active">선택</button>
+          <button id="eraseTool" class="tool">지우개</button>
+          <button id="restoreTool" class="tool">복구</button>
+        </div>
+        <label class="range-label">브러시 크기 <span id="brushValue">24</span></label>
+        <input id="brushSize" type="range" min="5" max="90" value="24">
+        <button id="removeBgBtn" class="wide">선택한 사진 자동 누끼</button>
+        <button id="deleteBtn" class="wide danger">선택한 스티커 삭제</button>
+        <div class="small-note">자동 누끼는 처음 실행할 때 AI 모델을 내려받아. 인터넷 연결과 잠시 기다리는 시간이 필요해.</div>
+      </section>
+    </aside>
+
+    <section class="workspace">
+      <div class="canvas-heading">
+        <div><h1>나의 코디 보드</h1><p>옷을 끌어다 놓고 자유롭게 조합해 봐!</p></div>
+        <div class="canvas-actions"><button id="frontBtn">앞으로</button><button id="backBtn">뒤로</button><button id="clearBtn">초기화</button></div>
+      </div>
+      <div class="stage-wrap"><div id="stage"></div></div>
+      <div class="under-stage"><span>스티커를 눌러 선택 · 모서리를 잡아 크기 조절 · 위쪽 핸들로 회전</span><span id="status">준비 완료</span></div>
+      <section class="panel saved-panel">
+        <div class="saved-head"><h2>저장한 코디</h2><button id="refreshSaved">새로고침</button></div>
+        <div id="savedLooks" class="saved-looks"><span class="empty">저장한 코디가 여기에 보여.</span></div>
+      </section>
+    </section>
+  </main>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>
